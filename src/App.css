@@ -1,0 +1,35 @@
+.sidebar-admin {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Occupe toute la hauteur de l'écran */
+  padding: 20px; /* Optionnel : espace interne */
+}
+
+.profile-section {
+  /* Section du profil en haut */
+  margin-bottom: 20px;
+}
+
+.menu-section {
+  /* Section du menu au milieu */
+  flex-grow: 1; /* Prend tout l'espace disponible */
+}
+
+.logout-section {
+  /* Section du Logout en bas */
+  margin-top: auto; /* Positionne automatiquement en bas de l'espace disponible */
+  padding-top: 10px; /* Ajoute un espace pour qu'il ne soit pas collé au bord */
+  border-top: 1px solid #ccc; /* Ligne séparatrice optionnelle */
+}
+/* carte  */
+.active-card {
+  border: 2px solid #28a745; /* Bordure verte */
+  background-color: #d4edda; /* Fond vert clair */
+  color: #155724; /* Texte vert foncé */
+  transition: all 0.3s ease; /* Pour une transition fluide */
+}
+
+.active-card h4,
+.active-card p {
+  color: #155724; /* Texte à l'intérieur de la carte */
+}
