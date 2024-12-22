@@ -26,7 +26,7 @@ const SideBarAdmin: React.FC = () => {
             alt="md"
             width="32"
             height="32"
-            className="rounded-circle bg-success"
+            className=" bg-success"
           />
         </Link>
         {isDropDownOpen && (
