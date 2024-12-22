@@ -26,7 +26,7 @@ export interface UsersQueryArgs {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://127.0.0.1:8000/api/', // URL de base pour vos endpoints
+    baseUrl:  process.env.REACT_APP_API_URL || 'http://localhost:8000/api/', //  Utilisation de REACT_APP_API_URL pour la prod
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token; // Récupérer le token du store Redux
       
