@@ -12,7 +12,8 @@ const validatePhoneNumber = (phone: string) => {
 
 // Regex pour valider le mot de passe
 export const validatePassword = (password: string) => {
-  const regex = /^[A-Z][a-z]\d{5}[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\\/?]+$/;
+  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]).{8,}$/;
+  ;
   return regex.test(password);
 };
 
@@ -52,7 +53,7 @@ const Register: React.FC = () => {
 
     // Validation du mot de passe
     if (!validatePassword(formData.password)) {
-      setError('Le mot de passe doit commencer par une majuscule, contenir 5 chiffres et un caractère spécial');
+      setError('doit contenir : une majuscule, une minuscule, un chiffre, un caractère spécial et avoir au moins 8 caractères.');
       return;
     }
 

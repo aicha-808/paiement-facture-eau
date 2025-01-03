@@ -20,7 +20,7 @@ const ValidPassWord: React.FC = () => {
       return false;
     }
     if (!validatePassword(newPassword)) {
-      setError('Le mot de passe doit commencer par une majuscule, contenir 5 chiffres et un caractère spécial.');
+      setError('doit contenir : une majuscule, une minuscule, un chiffre, un caractère spécial et avoir au moins 8 caractères.');
       return false;
     }
     setError('');

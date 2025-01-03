@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 // import imgLogin from '../../assets/images/Screenshot_20220910-182326.png'
 
 const phoneRegex = /^\+?1?\d{9,15}$/; // Numéro de téléphone
-const passwordRegex = /^[A-Z][a-z]\d{5}[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\\/?]+$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]).{8,}$/;
+
 
 const LoginForm: React.FC = () => {
   // États locaux pour le formulaire
@@ -31,7 +32,7 @@ const LoginForm: React.FC = () => {
 
     if (!passwordRegex.test(password)) {
       validationErrors.password =
-        'Le mot de passe doit commencer par une majuscule, inclure une minuscule, 5 chiffres, et au moins un caractère spécial.';
+        "Mot de passe invalide. Il doit contenir : une majuscule, une minuscule, un chiffre, un caractère spécial et avoir au moins 8 caractères.";
     }
 
     setErrors(validationErrors);
