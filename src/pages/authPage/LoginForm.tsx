@@ -80,13 +80,17 @@ const LoginForm: React.FC = () => {
           <h2 className='text-center text-light'>Connexion</h2>
           <div className='mb-3'>
             <label htmlFor="phoneNumber" className='text-light'>Numéro de téléphone</label>
-            <input className='form-control'
-              type="number"
+            <input
+              className='form-control'
+              type="tel" 
               id="phoneNumber"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="Numéro de téléphone"
+              pattern="^\+?1?\d{9,15}$" 
+              required
             />
+
             {errors.phoneNumber && <p style={{ color: 'red' }}>{errors.phoneNumber}</p>}
           </div>
           <div className='mb-3'>
