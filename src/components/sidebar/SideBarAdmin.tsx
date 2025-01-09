@@ -22,7 +22,7 @@ const SideBarAdmin: React.FC = () => {
           onClick={() => setIsDropDownOpen(!isDropDownOpen)}
         >
           <img
-            src="https://github.com/mdo.png"
+            src=""
             alt="md"
             width="32"
             height="32"

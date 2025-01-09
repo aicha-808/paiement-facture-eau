@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePasswordValidateMutation } from '../../services/authApi';  // Assurez-vous que cette mutation existe
 import { validatePassword } from '../authPage/Register';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const ValidPassWord: React.FC = () => {
   const [newPassword, setNewPassWord] = useState('');
   const [token, setToken] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   // Utilisation de la mutation RTK Query pour réinitialiser le mot de passe
@@ -51,28 +54,35 @@ const ValidPassWord: React.FC = () => {
   };
 
   return (
-    <div className="col-lg-4 col-sm-12 mx-auto bg-success p-3">
-      <form onSubmit={handleSubmit}>
+    <div className="col-lg-4 col-sm-12 mx-auto bg-success p-4">
+      <form onSubmit={handleSubmit} className=''>
         <div className="mb-3">
-          <label htmlFor="code" className="text-light">Code de réinitialisation envoyé par SMS</label>
           <input
-            id="code"
             type="text"
             value={token}
             onChange={(e) => setToken(e.target.value)}
             className="form-control"
+            placeholder='Saisir le code de réinitialisation'
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="newPassword" className="text-light">Nouveau mot de passe</label>
-          <input
-            id="newPassword"
-            type="password"  // Utilisez "password" pour masquer le texte
-            value={newPassword}
-            onChange={(e) => setNewPassWord(e.target.value)}
-            className="form-control"
-          />
+          <div className="input-group">
+            <input
+              className="form-control"
+              type={showPassword ? 'text' : 'password'}
+              value={newPassword}
+              onChange={(e) => setNewPassWord(e.target.value)}
+              placeholder="nouveau mot de passe"
+            />
+            <button
+              type="button"
+              className="btn btn-light"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </button>
+          </div>
         </div>
 
         {error && <div className="text-danger mb-3">{error}</div>}

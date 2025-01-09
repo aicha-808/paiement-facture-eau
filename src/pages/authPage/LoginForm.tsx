@@ -4,7 +4,9 @@ import { useAppDispatch } from '../../hooks/hooks';
 import { login as loginAction } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import imgLogin from '../../assets/images/Screenshot_20220910-182326.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 const phoneRegex = /^\+?1?\d{9,15}$/; // Numéro de téléphone
 const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]).{8,}$/;
@@ -14,6 +16,7 @@ const LoginForm: React.FC = () => {
   // États locaux pour le formulaire
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ phoneNumber?: string; password?: string }>({});
 
   // RTK Query et Dispatch
@@ -79,29 +82,43 @@ const LoginForm: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <h2 className='text-center text-light'>Connexion</h2>
           <div className='mb-3'>
-            <label htmlFor="phoneNumber" className='text-light'>Numéro de téléphone</label>
-            <input
-              className='form-control'
-              type="tel" 
-              id="phoneNumber"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="Numéro de téléphone"
-              pattern="^\+?1?\d{9,15}$" 
-              required
-            />
-
+            {/* <label htmlFor="phoneNumber" className='text-light'>Numéro de téléphone</label> */}
+            <div className="input-group">
+              <input
+                className="form-control"
+                type="tel"
+                // id="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                placeholder="Numéro de téléphone"
+                pattern="^\+?1?\d{9,15}$"
+                required
+              />
+               <span className="input-group-text bg-light">
+                <FontAwesomeIcon icon={faPhone} />
+              </span>
+            </div>
             {errors.phoneNumber && <p style={{ color: 'red' }}>{errors.phoneNumber}</p>}
           </div>
           <div className='mb-3'>
-            <label htmlFor="password" className='text-light'>Mot de passe</label>
-            <input className='form-control'
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mot de passe"
-            />
+            {/* <label htmlFor="password" className='text-light'>Mot de passe</label> */}
+            <div className="input-group">
+              <input
+                className="form-control"
+                type={showPassword ? 'text' : 'password'}
+                // id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Mot de passe"
+              />
+              <button
+                type="button"
+                className="btn btn-light"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </button>
+            </div>
             {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
           </div>
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useForgotPasswordMutation } from '../../services/authApi';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 const ResetPassword: React.FC  = () => {
   const [forgotPassword] = useForgotPasswordMutation();
@@ -21,13 +23,20 @@ const ResetPassword: React.FC  = () => {
     <div className="col-lg-4 col-sm-12 mx-auto bg-success p-3">
         <form onSubmit={handleSubmit}>
             <div className='mb-3'>
-                <label htmlFor="num" className='text-light'>Numéro de téléphone</label>
-                <input
-                    type="number"
+               <div className="input-group">
+                  <input
+                    className="form-control"
+                    type="tel"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className='form-control mt-2'
-                />
+                    placeholder="Numéro de téléphone"
+                    pattern="^\+?1?\d{9,15}$"
+                    required
+                  />
+                    <span className="input-group-text bg-light">
+                    <FontAwesomeIcon icon={faPhone} />
+                  </span>
+                </div>
             </div>
         <button type="submit" className="btn btn-light form-control">Se Connecter</button>
         </form>

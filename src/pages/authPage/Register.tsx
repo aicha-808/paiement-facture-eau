@@ -3,6 +3,9 @@ import { useRegisterMutation } from '../../services/authApi';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 // Regex pour valider le numéro de téléphone (format international)
 const validatePhoneNumber = (phone: string) => {
@@ -29,6 +32,7 @@ const Register: React.FC = () => {
     password: '',
   });
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   // Accéder à l'état global Redux pour récupérer le rôle de l'utilisateur et son statut d'authentification
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -84,52 +88,71 @@ const Register: React.FC = () => {
         <div className=''><img src="/loginImg.jpg" alt="" className='img-fluid '/></div>
       </div>
       <div className='col-lg-6 col-sm-12 bg-success p-3 '>
-        <h2 className='text-light'>Inscription d'un utilisateur</h2>
+        <h2 className='text-light'> Inscrire un utilisateur</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
+            <div className="input-group">
             <input
-              className="form-control rounded-0"
+              className="form-control"
               type="text"
               placeholder="Nom"
               value={formData.nom}
               onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
               required
             />
+             <span className="input-group-text bg-light">
+                <FontAwesomeIcon icon={faUser} />
+            </span>
+             </div>
           </div>
           <div className="mb-3">
-            <input
-              className="form-control rounded-0"
-              type="number"
-              placeholder="Numéro de téléphone"
-              value={formData.phoneNumber}
-              onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-              required
-            />
+           <div className="input-group">
+              <input
+                className="form-control"
+                type="tel"
+                value={formData.phoneNumber}
+                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                placeholder="Numéro de téléphone"
+                pattern="^\+?1?\d{9,15}$"
+                required
+              />
+                <span className="input-group-text bg-light">
+                <FontAwesomeIcon icon={faPhone} />
+              </span>
+            </div>
           </div>
           <div className="mb-3">
-            <input
-              className="form-control rounded-0"
-              type="password"
-              placeholder="Mot de passe"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              required
-            />
+            <div className="input-group">
+              <input
+                className="form-control"
+                type={showPassword ? 'text' : 'password'}
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                placeholder="Mot de passe"
+              />
+              <button
+                type="button"
+                className="btn btn-light"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </button>
+            </div>
           </div>
           <div className="mb-3">
             <select
-              className="form-control rounded-0"
+               className="form-select"
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value as Role })}
               required
             >
-              <option value="">Sélectionner le rôle</option>
+              <option value="">Choisir un rôle</option>
               <option value="admin">Admin</option>
               <option value="membre">Membre</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-light form-control rounded-0">
+          <button type="submit" className="btn btn-light form-control">
             S'inscrire
           </button>
         </form>
